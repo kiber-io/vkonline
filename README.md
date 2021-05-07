@@ -5,7 +5,11 @@ Eternal online for VK
 A script for perpetual online, using data from the desktop application VK Messenger. Sends an online request every ±5 minutes (the time is calculated randomly to avoid recognition of automatic requests).
 
 ### Features
+- Cross-platform (Windows, Linux, macOS, Android)
 - Login and password authorization
-- Security (the token is obtained with the scope=offline parameter, i.e. it does not have access to any personal data, only public data from the page)
+- Token authorization
+- Security
+    - When logging in with a username and password, the script receives a token with the scope=offline parameter, so access is only available to general information about the user, such as first and last name, etc.
+    - When logging in with a token, you are solely responsible, since you cannot "take away" the rights from the token. Pay close attention to what rights you use the token with.
 - Support for two-factor authorization (SMS, call, code from the app)
 - Captcha processing (in manual mode)
