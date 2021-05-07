@@ -241,11 +241,11 @@ def check_credentials(login, password):
 
     if login == '':
         ERROR = 'Логин не может быть пустым'
-        return false
+        return False
     if password == '':
         ERROR = 'Пароль не может быть пустым'
-        return false
-    return true
+        return False
+    return True
 
 def run():
     global ERROR
