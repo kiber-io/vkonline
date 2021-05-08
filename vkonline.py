@@ -1,10 +1,9 @@
 from getpass import getpass
 from sys import platform
-from colorama import init, Fore
 from random import randrange
 from datetime import datetime
-from pathlib import Path
-import vklocale
+from simplelog import *
+import simplelocale
 import os
 import requests
 import json
@@ -29,7 +28,7 @@ VK_APP_VKMESSENGER_SECRET = 'Skg1Tn1r2qEbbZIAJMx3'
 
 ERROR = ''
 
-_ = vklocale.translate
+_ = simplelocale.translate
 
 ###################################################################################
 
@@ -213,46 +212,6 @@ def request_captcha(captcha_img):
     iprint(_('captcha_url').format(captcha_img=captcha_img))
     return input(_('enter_code_captcha'))
 
-def eprint(text, log=False):
-    logprint(Fore.RED + 'E: ', text, log)
-
-def iprint(text, log=False):
-    logprint(Fore.CYAN + 'I: ', text, log)
-
-def wprint(text, log=False):
-    logprint(Fore.YELLOW + 'W: ', text, log)
-
-def okprint(text, log=False):
-    logprint(Fore.GREEN + 'OK: ', text, log)
-
-def logprint(prefix, text, log):
-    print(prefix + text)
-    if log == 'debug' or log == 'd':
-        dlog(text)
-    elif log == 'error' or log == 'e':
-        elog(text)
-
-def dlog(text):
-    if platform == 'win32':
-        filename = 'logs\\debug.log'
-    else:
-        filename = 'logs/debug.log'
-    log(filename, text)
-
-def elog(text):
-    if platform == 'win32':
-        filename = 'logs\\error.log'
-    else:
-        filename = 'logs/error.log'
-    log(filename, text)
-
-def log(filename, text):
-    current_time = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
-    text = '[' + current_time + '] ' + text + '\n'
-    Path('logs').mkdir(exist_ok=True)
-    with open(filename, 'a') as f:
-        f.write(text)
-
 def clear_screen():
     if platform == 'win32':
         os.system('cls')
@@ -293,6 +252,5 @@ def run():
         run()
 
 if __name__ == '__main__':
-    vklocale.set_language(LANGUAGE)
-    init(autoreset=True)
+    simplelocale.set_language(LANGUAGE)
     run()

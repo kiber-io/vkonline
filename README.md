@@ -23,7 +23,7 @@ Requests are sent every 4 minutes + a random number of seconds from 0 to 60. Ran
 - Login and password authorization
 - Authorization by token
 - Security
-    - Login and password authorization: the script requests a token with the scope==offline parameter, which allows you to get a token with almost no rights. All that the received token is capable of is getting general information about the page (for example, first and last name). There is NO access to messages (reading, sending) and other personal data.
+    - Login and password authorization: the script requests a token with the scope=offline parameter, which allows you to get a token with almost no rights. All that the received token is capable of is getting general information about the page (for example, first and last name). There is NO access to messages (reading, sending) and other personal data.
     - Authorization by token: all responsibility rests with you. You cannot" take away " the rights from a previously received token. If you use a token with critical access rights (for example, messages), then I am not responsible for any further consequences. The script itself does not merge or save the token anywhere, but during operation, the token is stored in the process memory, and can also be seen in network requests (the script works via HTTPS).
 - Support for two-factor authorization (SMS, call, code from the app to generate codes)
 - Captcha support (only in manual mode, i.e. you will be given a link to the captcha, which you will need to open manually, and the script will request the code from the image)

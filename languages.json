@@ -6,7 +6,7 @@
         "online_need_token": "Для запуска онлайна требуется токен!",
         "start_online": "Запуск онлайна…",
         "error_loading_vk_info": "Что-то пошло не так при запросе данных о странице.",
-        "success_online_started": "Онлайн успешно запущен для аккаунта id {id} ({name} {surname}!",
+        "success_online_started": "Онлайн успешно запущен для аккаунта id{id} ({name} {surname})!",
         "success_method_call": "Вызов метода {method} прошёл успешно.",
         "error_method_call": "Произошла ошибка при вызове метода {method}.",
         "success_authorization": "Авторизация прошла успешно, токен получен!",
@@ -38,7 +38,6 @@
         "auth_token_warn": "Обратите внимание, что при авторизации по токену онлайн будет работать от имени того приложения, через которое токен был получен!",
         "enter_token": "Введите токен: ",
         "error_unknown_auth_type": "Неизвестный режим авторизации",
-        "ctrl_c_handler": "Вы нажали Ctrl+C! Вы хотите завершить работу скрипта? (N/y)",
         "bye_bye": "Нажал Ctrl+C? Закрой дверь с той стороны!"
     },
     "en": {
@@ -48,7 +47,7 @@
         "online_need_token": "To start online requires a token!",
         "start_online": "Start an online...",
         "error_loading_vk_info": "Something went wrong when requesting data about the page.",
-        "success_online_started": "Online successfully running for account id {id} ({name} {surname}!",
+        "success_online_started": "Online successfully running for account id{id} ({name} {surname})!",
         "success_method_call": "Calling the method {method} was successful.",
         "error_method_call": "An error occurred when calling the method {method}.",
         "success_authorization": "Authorization was successful, the token was received!",
@@ -80,7 +79,6 @@
         "auth_token_warn": "Please note that when you log in online token will work on behalf of the application, through which the token has been retrieved!",
         "enter_token": "Enter token: ",
         "error_unknown_auth_type": "Unknown authentication",
-        "ctrl_c_handler": "You pressed Ctrl+C! Do you want to terminate the script? (N/y)",
         "bye_bye": "You pressed Ctrl+C? Bye-Bye!"
     }
 }
