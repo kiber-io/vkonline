@@ -50,13 +50,24 @@ def request_credentials():
     return login, password
 
 def api(url, params = {}):
+    success_request = False
     headers = {
         'Accept-Language': LANGUAGE_VK,
         'User-Agent': 'VKDesktopMessenger/5.2.3 (win32; 10.0.19042; x64)'
     }
-    netlog(_('log_request', DEBUG).format(url=url, params=json.dumps(params)))
-    response = requests.get(url, params=params, headers=headers)
-    netlog(_('log_response', DEBUG).format(response=response.text))
+    if DEBUG:
+        netlog(_('log_request', 'debug').format(url=url, params=json.dumps(params)))
+    while success_request == False:
+        try:
+            response = requests.get(url, params=params, headers=headers)
+            success_request = True
+        except Exception as e:
+            elog(_('network_error_log').format(error=e))
+            retry = 60
+            eprint(_('network_error_retry').format(seconds=retry))
+            time.sleep(retry)
+    if DEBUG:
+        netlog(_('log_response', 'debug').format(response=response.text))
     return response
 
 def start_online(token):
@@ -91,9 +102,11 @@ def start_online(token):
             dlog(_('error_method_call').format(method='account.setOnline'))
             dlog(response.text)
         sleep_time_new = sleep_time + randrange(60)
-        dlog(_('sleep_time', DEBUG).format(seconds=sleep_time_new))
+        if DEBUG:
+            dlog(_('sleep_time', 'debug').format(seconds=sleep_time_new))
         time.sleep(sleep_time_new)
-        dlog(_('sleep_time_end', DEBUG))
+        if DEBUG:
+            dlog(_('sleep_time_end', 'debug'))
 
 def api_logIn(login, password):
     params = {

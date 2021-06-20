@@ -18,14 +18,11 @@ def read_translates():
             print('The translation file contains invalid JSON')
             exit()
 
-def translate(text, debug = False):
+def translate(text, dict = 'general'):
     if translates == None:
         read_translates()
     if language in translates:
-        if debug:
-            lang_dict = translates[language]['debug']
-        else:
-            lang_dict = translates[language]
+        lang_dict = translates[language][dict]
         if text in lang_dict:
             return lang_dict[text]
 
