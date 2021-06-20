@@ -1,5 +1,11 @@
 {
     "ru": {
+        "debug": {
+            "log_request": "Дамп запроса. URL: {url}, параметры: {params}.",
+            "log_response": "Дамп ответа. Получено: {response}.",
+            "sleep_time": "Спим {seconds} секунд.",
+            "sleep_time_end": "Выспались, идём дальше."
+        },
         "enter_login": "Введите логин: ",
         "enter_password": "Введите пароль: ",
         "password_not_visible": "Пароль при вводе не отображается.",
@@ -41,6 +47,12 @@
         "bye_bye": "Нажал Ctrl+C? Закрой дверь с той стороны!"
     },
     "en": {
+        "debug": {
+            "log_request": "Request dump. URL: {url}, parameters: {params}",
+            "log_response": "Response dump. Received: {response}",
+            "sleep_time": "Sleep {seconds} seconds.",
+            "sleep_time_end": "Sleep well, let's move on."
+        },
         "enter_login": "Enter username: ",
         "enter_password": "Enter password: ",
         "password_not_visible": "The password as you type is not displayed.",

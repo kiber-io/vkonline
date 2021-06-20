@@ -2,6 +2,7 @@ from colorama import init, Fore
 from pathlib import Path
 from sys import platform
 from datetime import datetime
+import re
 
 def eprint(text, log=False):
     logprint(Fore.RED + 'E: ', text, log)
@@ -27,6 +28,26 @@ def dlog(text):
         filename = 'logs\\debug.log'
     else:
         filename = 'logs/debug.log'
+    log(filename, text)
+
+def netlog(text):
+    if platform == 'win32':
+        filename = 'logs\\network.log'
+    else:
+        filename = 'logs/network.log'
+    text = re.sub(
+        r'("access_token":\s?)".*?"',
+        r'\g<1>"hidden :P"',
+        re.sub(
+            r'("username":\s?)".*?"',
+            r'\g<1>"hidden :P"',
+                re.sub(
+                    r'("password":\s?)".*?"',
+                    r'\g<1>"hidden :P"',
+                    text
+                )
+        )
+    )
     log(filename, text)
 
 def elog(text):
