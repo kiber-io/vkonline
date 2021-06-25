@@ -9,7 +9,6 @@ import requests
 import json
 import time
 import signal
-import sys
 
 ############################ YOU CAN CHANGE IT ####################################
 # The language in which the script will output its messages and write to the log
@@ -32,6 +31,10 @@ _ = simplelocale.translate
 
 ###################################################################################
 
+################################# DEBUG ###########################################
+DEBUG = True
+###################################################################################
+
 def signal_handler(sig, frame):
     print()
     iprint(_('bye_bye'))
@@ -47,11 +50,24 @@ def request_credentials():
     return login, password
 
 def api(url, params = {}):
+    success_request = False
     headers = {
         'Accept-Language': LANGUAGE_VK,
         'User-Agent': 'VKDesktopMessenger/5.2.3 (win32; 10.0.19042; x64)'
     }
-    response = requests.get(url, params=params, headers=headers)
+    if DEBUG:
+        netlog(_('log_request', 'debug').format(url=url, params=json.dumps(params)))
+    while success_request == False:
+        try:
+            response = requests.get(url, params=params, headers=headers)
+            success_request = True
+        except Exception as e:
+            elog(_('network_error_log').format(error=e))
+            retry = 60
+            eprint(_('network_error_retry').format(seconds=retry))
+            time.sleep(retry)
+    if DEBUG:
+        netlog(_('log_response', 'debug').format(response=response.text))
     return response
 
 def start_online(token):
@@ -85,7 +101,12 @@ def start_online(token):
         else:
             dlog(_('error_method_call').format(method='account.setOnline'))
             dlog(response.text)
-        time.sleep(sleep_time + randrange(60))
+        sleep_time_new = sleep_time + randrange(60)
+        if DEBUG:
+            dlog(_('sleep_time', 'debug').format(seconds=sleep_time_new))
+        time.sleep(sleep_time_new)
+        if DEBUG:
+            dlog(_('sleep_time_end', 'debug'))
 
 def api_logIn(login, password):
     params = {
@@ -175,7 +196,7 @@ def parse_api_error(response):
                 return auth_2fa(response, validation_type, res['phone_mask'])
             elif validation_type == '2fa_sms':
                 iprint(_('error_2fa_sms'))
-                return auth_2fa(response, validation_code, res['phone_mask'])
+                return auth_2fa(response, validation_type, res['phone_mask'])
             else:
                 unknown_server_error(response.text)
         else:
@@ -186,11 +207,11 @@ def unknown_server_error(text):
     wprint(text, log='e')
     exit()
 
-def auth_2fa(response, validation_code, phone_mask):
+def auth_2fa(response, validation_type, phone_mask):
     print('1. {text}'.format(text=_('enter_code')))
-    if validation_code == '2fa_app':
+    if validation_type == '2fa_app':
         print('2. {text}'.format(text=_('request_code_sms')))
-    elif validation_code == '2fa_sms':
+    elif validation_type == '2fa_sms':
         print('2. {text}'.format(text=_('retry_request_code_sms')))
     else:
         eprint(_('error_unknown_validation_type'))
@@ -204,7 +225,7 @@ def auth_2fa(response, validation_code, phone_mask):
         return parse_api_response(api(response.url + '&force_sms=1'))
     else:
         eprint(_('error_unknown_variant'))
-        return auth_2fa(response, validation_code, phone_mask)
+        return auth_2fa(response, validation_type, phone_mask)
 
 def request_captcha(captcha_img):
     wprint(_('error_need_captcha'))

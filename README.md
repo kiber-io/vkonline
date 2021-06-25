@@ -16,7 +16,7 @@ Requests are sent every 4 minutes + a random number of seconds from 0 to 60. Ran
     - colorama (tested on version 0.4.4)
     - idna (tested on version 2.10)
     - requests (tested on version 2.25.1)
-    - urllib3 (tested on version 1.26.4)
+    - urllib3 (tested on version 1.26.5)
 
 ### Features
 - Cross-platform (Windows, Linux, macOS, Android)

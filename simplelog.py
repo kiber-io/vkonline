@@ -2,6 +2,10 @@ from colorama import init, Fore
 from pathlib import Path
 from sys import platform
 from datetime import datetime
+import re
+
+regexResponse = r'("(username|password|access_token)":\s?)".*?"'
+regexRequest = r'((username|password|access_token)=).*?(?=[&\s])'
 
 def eprint(text, log=False):
     logprint(Fore.RED + 'E: ', text, log)
@@ -29,6 +33,13 @@ def dlog(text):
         filename = 'logs/debug.log'
     log(filename, text)
 
+def netlog(text):
+    if platform == 'win32':
+        filename = 'logs\\network.log'
+    else:
+        filename = 'logs/network.log'
+    log(filename, text)
+
 def elog(text):
     if platform == 'win32':
         filename = 'logs\\error.log'
@@ -38,6 +49,15 @@ def elog(text):
 
 def log(filename, text):
     current_time = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+    text = re.sub(
+        regexResponse,
+        r'\g<1>"ooops_hidden"',
+        re.sub(
+            regexRequest,
+            r'\g<1>ooops_hidden',
+            text
+        )
+    )
     text = '[' + current_time + '] ' + text + '\n'
     Path('logs').mkdir(exist_ok=True)
     with open(filename, 'a', encoding='utf-8') as f:
