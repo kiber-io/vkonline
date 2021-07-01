@@ -1,4 +1,6 @@
 # vkonline
+[![CodeQL](https://github.com/kiber-io/vkonline/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/kiber-io/vkonline/actions/workflows/codeql-analysis.yml)
+
 Eternal online for VKontakte written in Python
 
 ### What is it?
