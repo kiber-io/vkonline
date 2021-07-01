@@ -93,14 +93,15 @@ def start_online(token):
     while True:
         response = parse_api_response(api(VK_API_METHODS_URL + 'account.setOnline', params))
         res = json.loads(response.text)
-        if res['response'] == 1:
-            if success_run == False:
-                success_run = True
-                okprint(_('success_online_started').format(id=vk_id, name=name, surname=surname), log='d')
-            dlog(_('success_method_call').format(method='account.setOnline'))
-        else:
-            dlog(_('error_method_call').format(method='account.setOnline'))
-            dlog(response.text)
+        if 'response' in res:
+            if res['response'] == 1:
+                if success_run == False:
+                    success_run = True
+                    okprint(_('success_online_started').format(id=vk_id, name=name, surname=surname), log='d')
+                dlog(_('success_method_call').format(method='account.setOnline'))
+            else:
+                dlog(_('error_method_call').format(method='account.setOnline'))
+                dlog(response.text)
         sleep_time_new = sleep_time + randrange(60)
         if DEBUG:
             dlog(_('sleep_time', 'debug').format(seconds=sleep_time_new))
@@ -121,7 +122,7 @@ def api_logIn(login, password):
     }
     response = parse_api_response(api(VK_API_OAUTH_URL, params))
     res = json.loads(response.text)
-    if res['access_token']:
+    if 'access_token' in res:
         okprint(_('success_authorization'))
         start_online(res['access_token'])
     else:
@@ -178,7 +179,9 @@ def parse_api_error(response):
                     ERROR = error['error_msg']
                     run()
             else:
-                unknown_server_error('error_code: {error_code}, error_msg: {error_msg}'.format(error_code=error_code, error_msg=error['error_msg']))
+                eprint(_('error_unknown_server_error'), log='e')
+                wprint('error_code: {error_code}, error_msg: {error_msg}'.format(error_code=error_code, error_msg=error['error_msg']), log='e')
+                return response
         elif error == 'need_captcha':
             captcha_code = request_captcha(res['captcha_img'])
             return parse_api_response(api(response.url + '&captcha_sid=' + res['captcha_sid'] + '&captcha_key=' + captcha_code))
@@ -188,7 +191,7 @@ def parse_api_error(response):
                 ERROR = res['error_description']
                 run()
             else:
-                unknown_server_error(response.text)
+                return unknown_server_error(response.text)
         elif error == 'need_validation':
             validation_type = res['validation_type']
             if validation_type == '2fa_app':
@@ -198,14 +201,14 @@ def parse_api_error(response):
                 iprint(_('error_2fa_sms'))
                 return auth_2fa(response, validation_type, res['phone_mask'])
             else:
-                unknown_server_error(response.text)
+                return unknown_server_error(response.text)
         else:
-            unknown_server_error(response.text)
+            return unknown_server_error(response.text)
 
-def unknown_server_error(text):
+def unknown_server_error(response):
     eprint(_('error_unknown_server_error'), log='e')
-    wprint(text, log='e')
-    exit()
+    wprint(response.text, log='e')
+    return {'error': response.text}
 
 def auth_2fa(response, validation_type, phone_mask):
     print('1. {text}'.format(text=_('enter_code')))
