@@ -205,10 +205,10 @@ def parse_api_error(response):
         else:
             return unknown_server_error(response.text)
 
-def unknown_server_error(response):
+def unknown_server_error(text):
     eprint(_('error_unknown_server_error'), log='e')
-    wprint(response.text, log='e')
-    return {'error': response.text}
+    wprint(text, log='e')
+    return {'error': text}
 
 def auth_2fa(response, validation_type, phone_mask):
     print('1. {text}'.format(text=_('enter_code')))
