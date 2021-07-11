@@ -50,6 +50,7 @@ cd vkonline
     source env/bin/activate
     ```  
 3. Установите зависимости
+
     - Windows-style  
     ```
     python -m pip install -r requirements.txt
@@ -59,7 +60,8 @@ cd vkonline
     python3 -m pip install -r requirements.txt
     ```
 ### Запуск
-1. Самая сложная часть мануала.
+1. Самая сложная часть мануала
+
     - Windows-style  
     ```
     python vkonline.py
