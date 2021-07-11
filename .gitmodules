@@ -1,0 +1,6 @@
+[submodule "simplePyLocale"]
+	path = simplePyLocale
+	url = https://github.com/kiber-io/simplePyLocale
+[submodule "simplePyLog"]
+	path = simplePyLog
+	url = https://github.com/kiber-io/simplePyLog
