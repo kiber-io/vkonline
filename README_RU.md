@@ -1,4 +1,6 @@
 # vkonline
+[![CodeQL](https://github.com/kiber-io/vkonline/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/kiber-io/vkonline/actions/workflows/codeql-analysis.yml)
+
 Вечный онлайн для ВКонтакте, написанный на языке Python
 
 ### Что это такое?
