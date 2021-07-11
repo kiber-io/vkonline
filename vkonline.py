@@ -1,9 +1,6 @@
 from getpass import getpass
-from posixpath import ismount
-from simplePyLog.simplePyLog import eprint
 from sys import platform
 from random import randrange
-from datetime import datetime
 import os
 import requests
 import json
