@@ -279,6 +279,6 @@ def run():
         ERROR = _('error_unknown_auth_type')
         run()
 
-simplePyLocale.set_language(LANGUAGE)
 if not IS_MODULE:
+    simplePyLocale.set_language(LANGUAGE)
     run()
