@@ -20,6 +20,8 @@ def okprint(text, log=False):
     logprint(Fore.GREEN + 'OK: ', text, log)
 
 def logprint(prefix, text, log):
+    text = str(text)
+    prefix = str(prefix)
     print(prefix + text)
     if log == 'debug' or log == 'd':
         dlog(text)
@@ -48,6 +50,7 @@ def elog(text):
     log(filename, text)
 
 def log(filename, text):
+    text = str(text)
     current_time = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
     text = re.sub(
         regexResponse,

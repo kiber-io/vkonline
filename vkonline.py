@@ -34,6 +34,7 @@ _ = simplelocale.translate
 ################################# DEBUG ###########################################
 DEBUG = False
 ###################################################################################
+IS_MODULE = __name__ != '__main__'
 
 def signal_handler(sig, frame):
     print()
@@ -122,12 +123,15 @@ def api_logIn(login, password):
     }
     response = parse_api_response(api(VK_API_OAUTH_URL, params))
     res = json.loads(response.text)
-    if 'access_token' in res:
-        okprint(_('success_authorization'))
-        start_online(res['access_token'])
+    if not IS_MODULE:
+        if res['access_token']:
+            okprint(_('success_authorization'))
+            start_online(res['access_token'])
+        else:
+            eprint(_('error_authorization_unknown_error'))
+            wprint(response.text)
     else:
-        eprint(_('error_authorization_unknown_error'))
-        wprint(response.text)
+        return res
 
 def parse_api_response(response):
     res = json.loads(response.text)
@@ -275,6 +279,6 @@ def run():
         ERROR = _('error_unknown_auth_type')
         run()
 
-if __name__ == '__main__':
-    simplelocale.set_language(LANGUAGE)
+simplelocale.set_language(LANGUAGE)
+if not IS_MODULE:
     run()
