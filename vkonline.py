@@ -279,6 +279,6 @@ def run():
         ERROR = _('error_unknown_auth_type')
         run()
 
-simplelocale.set_language(LANGUAGE)
 if not IS_MODULE:
+    simplelocale.set_language(LANGUAGE)
     run()
