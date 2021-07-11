@@ -2,8 +2,8 @@ from getpass import getpass
 from sys import platform
 from random import randrange
 from datetime import datetime
-from simplelog import *
-import simplelocale
+from simplePyLog.simplePyLog import *
+from simplePyLocale import simplePyLocale
 import os
 import requests
 import json
@@ -27,7 +27,7 @@ VK_APP_VKMESSENGER_SECRET = 'Skg1Tn1r2qEbbZIAJMx3'
 
 ERROR = ''
 
-_ = simplelocale.translate
+_ = simplePyLocale.translate
 
 ###################################################################################
 
@@ -276,6 +276,6 @@ def run():
         ERROR = _('error_unknown_auth_type')
         run()
 
-simplelocale.set_language(LANGUAGE)
+simplePyLocale.set_language(LANGUAGE)
 if not IS_MODULE:
     run()
