@@ -49,8 +49,9 @@ cd vkonline
     python3 -m pip venv env
     source env/bin/activate
     ```  
-3. Install the dependencies
--Windows-style  
+3. Install the dependencies  
+
+    - Windows-style  
     ```
     python -m pip install -r requirements.txt
     ```
@@ -59,7 +60,8 @@ cd vkonline
     python3 -m pip install -r requirements.txt
     ```
 ### Launch
-1. The most difficult part of the manual.
+1. The most difficult part of the manual  
+
     - Windows-style  
     ```
     python vkonline.py
